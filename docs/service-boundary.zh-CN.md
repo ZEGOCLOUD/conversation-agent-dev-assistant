@@ -6,7 +6,7 @@
 | --- | --- |
 | `Cogit-oergo-sum/pulse-conversation-agent` | 后续对外可见的 Pulse preview 仓库，只提供文档、manifest/checksum 和编译后的 preview 制品，不开放 runtime 源码。 |
 | `Cogit-oergo-sum/conversation-agent-dev-assistant` | 本仓库，面向 Codex / Cursor / Claude Code 等 AI 编程工具，帮助安装、部署、调优和排障。 |
-| `Cogit-oergo-sum/OpenClaw-Voice-Gateway-Plugin` | 内部源码和 release governance 仓库，负责 runtime 源码、打包、云端验证、stable promotion 和制品生成。 |
+| `Cogit-oergo-sum/openClaw-RTC-plugin` | 内部源码和 release governance 仓库，负责 runtime 源码、打包、云端验证、stable promotion 和制品生成。 |
 | 客户 `.tgz` 制品 | 客户真正运行的不可变服务包，可以是 Pulse preview 包，也可以是客户专属私有包。 |
 
 本仓库只做 AI 编程工具辅助，不承载 runtime 制品，不提供内部源码，不包含客户专属私有 workspace。

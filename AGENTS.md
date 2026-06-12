@@ -10,7 +10,7 @@ Use the current three-repository strategy as the default mental model:
 | --- | --- |
 | `Cogit-oergo-sum/pulse-conversation-agent` | External preview repository. It is intended to become public-readable after review, but it distributes compiled artifacts only and is not an open-source source release. |
 | `Cogit-oergo-sum/conversation-agent-dev-assistant` | This repository. It helps AI coding tools install, validate, tune, and troubleshoot the Service. |
-| `Cogit-oergo-sum/OpenClaw-Voice-Gateway-Plugin` | Internal source and release-governance repository. Do not depend on it for developer installation unless the maintainer explicitly gives internal access. |
+| `Cogit-oergo-sum/openClaw-RTC-plugin` | Internal source and release-governance repository. Do not depend on it for developer installation unless the maintainer explicitly gives internal access. |
 | Customer `.tgz` artifacts | Customer-deployable immutable service packages. They are the thing developers actually run. |
 
 Do not blur these boundaries. This assistant can reference Pulse or a customer artifact as an input, but it must not ship runtime source, release-governance internals, real secrets, or customer-specific private workspaces.
