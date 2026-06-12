@@ -1,0 +1,23 @@
+{
+  "name": "conversation-agent-dev-assistant",
+  "version": "0.1.0",
+  "description": "Developer assistant skills for installing, understanding, optimizing, and troubleshooting Conversation Agent Service.",
+  "author": {
+    "name": "ZEGO"
+  },
+  "license": "Proprietary",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Conversation Agent Developer Assistant",
+    "shortDescription": "Install, tune, and troubleshoot Conversation Agent Service.",
+    "longDescription": "Reusable Codex skills for installing Conversation Agent Service from customer artifacts, understanding service boundaries, optimizing workspace prompts and actions, and troubleshooting Live E2E validation.",
+    "developerName": "ZEGO",
+    "category": "Developer Tools",
+    "capabilities": ["Read", "Write"],
+    "defaultPrompt": [
+      "Use Conversation Agent Developer Assistant to install Conversation Agent Service from my customer artifact.",
+      "Use conversation-agent-optimize-prompts to tune my workspace prompts and action triggers.",
+      "Use conversation-agent-troubleshoot-live-e2e to diagnose my Web or ZEGO Live E2E issue."
+    ]
+  }
+}

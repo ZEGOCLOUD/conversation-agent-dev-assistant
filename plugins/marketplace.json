@@ -1,0 +1,19 @@
+{
+  "name": "conversation-agent-dev-assistant",
+  "displayName": "Conversation Agent Developer Assistant",
+  "description": "Developer assistant plugin source for Conversation Agent Service.",
+  "plugins": [
+    {
+      "name": "conversation-agent-dev-assistant",
+      "source": {
+        "path": "./codex"
+      },
+      "interface": {
+        "displayName": "Conversation Agent Developer Assistant",
+        "shortDescription": "Install, tune, and troubleshoot Conversation Agent Service.",
+        "developerName": "ZEGO",
+        "category": "Developer Tools"
+      }
+    }
+  ]
+}
