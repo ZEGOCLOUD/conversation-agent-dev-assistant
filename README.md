@@ -20,7 +20,8 @@ The intended split is: external users evaluate the Service through `pulse-conver
 ```text
 Fetch https://github.com/Cogit-oergo-sum/conversation-agent-dev-assistant,
 read AI_INSTALL.md and AGENTS.md,
-and follow them to install Conversation Agent Service.
+and follow them to install Conversation Agent Service from
+https://github.com/Cogit-oergo-sum/pulse-conversation-agent/releases/tag/v0.1.0-preview.2.
 When GitHub, ZEGO, LLM, npm registry, or other authentication/secrets are needed,
 do not ask me to paste secrets into chat. Ask me to type them in my local terminal.
 After setup, run check/status/doctor and summarize the validation level reached.

@@ -15,7 +15,7 @@ Identify whether the developer already has:
 
 | Input | Example | If missing |
 | --- | --- | --- |
-| Service artifact | `pulse-conversation-agent-gateway-v*.tgz` or `conversation-agent-3.0.beta-sdk-xxx.tgz` | Ask for a Pulse release URL, customer delivery URL, private Release, customer repo, or local file path. |
+| Service artifact | `pulse-conversation-agent-gateway-v0.1.0-preview.2.tgz` or a private customer service package supplied by the delivery team | Ask for the Pulse release URL, customer delivery URL, private Release, customer repo, or local file path. |
 | Customer project directory | `./ca3-project` | Default to `./ca3-project` next to the service package. |
 | Local tunnel or real ZEGO Live E2E requirement | Level 2.5 / Level 3 / no | Default to Level 1 local Gateway validation first. |
 
@@ -28,11 +28,11 @@ Choose one path:
 ### Local `.tgz`
 
 ```bash
-tar -xzf /path/to/pulse-conversation-agent-gateway-v*.tgz
-cd pulse-conversation-agent-gateway-v*
+tar -xzf /path/to/pulse-conversation-agent-gateway-v0.1.0-preview.2.tgz
+cd pulse-conversation-agent-gateway-v0.1.0-preview.2
 ```
 
-For a private customer package, use the package name supplied by the delivery team, for example `conversation-agent-3.0.beta-sdk-*`.
+For a private customer package, use the package name supplied by the delivery team, for example `customer-service-package-*.tgz`.
 
 ### GitHub Release
 
@@ -42,7 +42,13 @@ Ask the developer to authenticate with GitHub CLI:
 gh auth login
 ```
 
-Then download the Pulse preview artifact or private customer artifact using the release URL or command provided by the maintainers.
+Then download the Pulse preview artifact from:
+
+```text
+https://github.com/Cogit-oergo-sum/pulse-conversation-agent/releases/tag/v0.1.0-preview.2
+```
+
+For private customer artifacts, use the release URL or command provided by the maintainers.
 
 ### Controlled Download Link
 

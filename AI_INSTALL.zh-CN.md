@@ -15,7 +15,7 @@
 
 | 信息 | 示例 | 如果没有 |
 | --- | --- | --- |
-| 服务制品 | `pulse-conversation-agent-gateway-v*.tgz` 或 `conversation-agent-3.0.beta-sdk-xxx.tgz` | 询问 Pulse release URL、客户交付 URL、私有 Release、客户专属仓库，或本地路径。 |
+| 服务制品 | `pulse-conversation-agent-gateway-v0.1.0-preview.2.tgz` 或交付团队提供的私有客户服务包 | 询问 Pulse release URL、客户交付 URL、私有 Release、客户专属仓库，或本地路径。 |
 | 客户项目目录 | `./ca3-project` | 默认使用服务包旁边的 `./ca3-project`。 |
 | 是否需要本地 tunnel 或真实 ZEGO Live E2E | Level 2.5 / Level 3 / 否 | 默认先完成 Level 1 本地 Gateway 验收。 |
 
@@ -28,11 +28,11 @@
 ### 本地已有 `.tgz`
 
 ```bash
-tar -xzf /path/to/pulse-conversation-agent-gateway-v*.tgz
-cd pulse-conversation-agent-gateway-v*
+tar -xzf /path/to/pulse-conversation-agent-gateway-v0.1.0-preview.2.tgz
+cd pulse-conversation-agent-gateway-v0.1.0-preview.2
 ```
 
-如果是私有客户包，则使用交付方提供的包名，例如 `conversation-agent-3.0.beta-sdk-*`。
+如果是私有客户包，则使用交付方提供的包名，例如 `customer-service-package-*.tgz`。
 
 ### GitHub Release
 
@@ -42,7 +42,13 @@ cd pulse-conversation-agent-gateway-v*
 gh auth login
 ```
 
-然后按维护方提供的 release 地址或命令下载 Pulse preview 制品或私有客户制品。
+然后从下面的 release 下载 Pulse preview 制品：
+
+```text
+https://github.com/Cogit-oergo-sum/pulse-conversation-agent/releases/tag/v0.1.0-preview.2
+```
+
+私有客户制品则使用维护方提供的 release 地址或命令下载。
 
 ### 受控下载链接
 
