@@ -18,8 +18,8 @@ This repository is not the Conversation Agent Service runtime. It does not conta
 ```text
 Fetch https://github.com/ZEGOCLOUD/conversation-agent-dev-assistant,
 read AI_INSTALL.md and AGENTS.md,
-and follow them to install Pulse Conversation Agent 0.1.0-preview.13 from
-https://github.com/ZEGOCLOUD/pulse-conversation-agent/releases/tag/v0.1.0-preview.13.
+and follow them to install Pulse Conversation Agent 0.1.0-preview.15 from
+https://github.com/ZEGOCLOUD/pulse-conversation-agent/releases/tag/v0.1.0-preview.15.
 Use the Chinese developer guide at docs/zh-CN/guides/README.md when you need detailed service concepts, workspace, Action, Skill, deployment, validation, and troubleshooting references.
 When GitHub, ZEGO, LLM, npm registry, or other authentication/secrets are needed,
 do not ask me to paste secrets into chat. Ask me to type them in my local terminal.

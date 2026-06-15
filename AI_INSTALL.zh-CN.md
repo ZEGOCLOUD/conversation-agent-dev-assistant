@@ -15,7 +15,7 @@
 
 | 信息 | 示例 | 如果没有 |
 | --- | --- | --- |
-| Pulse preview 制品 | `pulse-conversation-agent-gateway-v0.1.0-preview.13.tgz` | 默认从 Pulse GitHub Release 下载；如果开发者已有本地文件，则使用本地文件。 |
+| Pulse preview 制品 | `pulse-conversation-agent-gateway-v0.1.0-preview.15.tgz` | 默认从 Pulse GitHub Release 下载；如果开发者已有本地文件，则使用本地文件。 |
 | 客户私有服务制品 | 交付方提供的 `.tgz` | 只有交付方明确提供客户私有包时才使用。 |
 | 客户项目目录 | `./pulse-project` | 默认使用服务包旁边的 `./pulse-project`。这是 setup 生成的项目目录，不是 workspace 名。 |
 | 是否需要本地 tunnel 或真实 ZEGO Live E2E | Level 2.5 / Level 3 / 否 | 默认先完成 Level 1 本地 Gateway 验收。 |
@@ -31,13 +31,13 @@
 ### Pulse GitHub Release
 
 ```bash
-VERSION=0.1.0-preview.13
+VERSION=0.1.0-preview.15
 BASE_URL=https://github.com/ZEGOCLOUD/pulse-conversation-agent/releases/download/v${VERSION}
-curl -L -O ${BASE_URL}/pulse-conversation-agent-gateway-v0.1.0-preview.13.tgz
-curl -L -O ${BASE_URL}/pulse-conversation-agent-gateway-v0.1.0-preview.13.tgz.sha256
-shasum -a 256 -c pulse-conversation-agent-gateway-v0.1.0-preview.13.tgz.sha256
-tar -xzf pulse-conversation-agent-gateway-v0.1.0-preview.13.tgz
-cd pulse-conversation-agent-gateway-v0.1.0-preview.13
+curl -L -O ${BASE_URL}/pulse-conversation-agent-gateway-v0.1.0-preview.15.tgz
+curl -L -O ${BASE_URL}/pulse-conversation-agent-gateway-v0.1.0-preview.15.tgz.sha256
+shasum -a 256 -c pulse-conversation-agent-gateway-v0.1.0-preview.15.tgz.sha256
+tar -xzf pulse-conversation-agent-gateway-v0.1.0-preview.15.tgz
+cd pulse-conversation-agent-gateway-v0.1.0-preview.15
 ```
 
 ### 本地已有 `.tgz`
