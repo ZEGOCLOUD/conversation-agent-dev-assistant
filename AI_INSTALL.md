@@ -15,7 +15,7 @@ Identify whether the developer already has:
 
 | Input | Example | If missing |
 | --- | --- | --- |
-| Pulse preview artifact | `pulse-conversation-agent-gateway-v0.1.0-preview.8.tgz` | Download it from the Pulse GitHub Release unless the developer already has it locally. |
+| Pulse preview artifact | `pulse-conversation-agent-gateway-v0.1.0-preview.9.tgz` | Download it from the Pulse GitHub Release unless the developer already has it locally. |
 | Customer private service artifact | Customer-provided `.tgz` | Use only when a delivery team explicitly provides a private customer package. |
 | Customer project directory | `./ca3-project` | Default to `./ca3-project` next to the service package. |
 | Local tunnel or real ZEGO Live E2E requirement | Level 2.5 / Level 3 / no | Default to Level 1 local Gateway validation first. |
@@ -29,13 +29,13 @@ Choose one path:
 ### Pulse GitHub Release
 
 ```bash
-VERSION=0.1.0-preview.8
+VERSION=0.1.0-preview.9
 BASE_URL=https://github.com/Cogit-oergo-sum/pulse-conversation-agent/releases/download/v${VERSION}
-curl -L -O ${BASE_URL}/pulse-conversation-agent-gateway-v0.1.0-preview.8.tgz
-curl -L -O ${BASE_URL}/pulse-conversation-agent-gateway-v0.1.0-preview.8.tgz.sha256
-shasum -a 256 -c pulse-conversation-agent-gateway-v0.1.0-preview.8.tgz.sha256
-tar -xzf pulse-conversation-agent-gateway-v0.1.0-preview.8.tgz
-cd pulse-conversation-agent-gateway-v0.1.0-preview.8
+curl -L -O ${BASE_URL}/pulse-conversation-agent-gateway-v0.1.0-preview.9.tgz
+curl -L -O ${BASE_URL}/pulse-conversation-agent-gateway-v0.1.0-preview.9.tgz.sha256
+shasum -a 256 -c pulse-conversation-agent-gateway-v0.1.0-preview.9.tgz.sha256
+tar -xzf pulse-conversation-agent-gateway-v0.1.0-preview.9.tgz
+cd pulse-conversation-agent-gateway-v0.1.0-preview.9
 ```
 
 ### Local `.tgz`
