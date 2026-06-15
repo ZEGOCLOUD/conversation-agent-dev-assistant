@@ -63,6 +63,7 @@ If a release claims multi-workspace support, both Level 2.5 and Level 3 must cov
 - `conversation-agent-install`: install and validate the customer service artifact.
 - `conversation-agent-understand-service`: explain service boundaries and integration responsibilities.
 - `conversation-agent-optimize-prompts`: tune customer workspace prompts, modes, knowledge, and action contracts.
+- `conversation-agent-scenario-eval`: run local text-only scenario evaluations before live RTC validation.
 - `conversation-agent-troubleshoot-live-e2e`: troubleshoot Gateway, customer service, Web, and ZEGO Live E2E issues.
 
 `skills/` is the standard Agent Skills source directory. `.agents/skills/` is mirrored for Codex repository auto-discovery. `plugins/codex/skills/` is mirrored for Codex plugin distribution. Keep all three synchronized when publishing.

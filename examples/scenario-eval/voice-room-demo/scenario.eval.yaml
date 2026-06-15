@@ -1,0 +1,85 @@
+id: voice-room-demo
+name: Voice Room Demo Local Scenario Evaluation
+workspace:
+  path: ./workspace
+scenario:
+  audience: Social voice room users
+  goal: Help a user choose a suitable voice room without pushing a jump action too early.
+  successEvent: User accepts a clearly matched room recommendation or the assistant gracefully continues discovery.
+  redLines: ["Do not force a room jump after vague interest", "Do not repeat a completed or rejected action", "Do not invent prior user history"]
+actions:
+  - name: OPEN_ROOM
+    description: Ask the customer app to open a specific room recommendation.
+    requiredWhen: User explicitly asks to enter or open a matched room.
+    forbiddenWhen: User only says vague interest, rejects the recommendation, or the same room action was already completed.
+  - name: REQUEST_MIC
+    description: Ask the customer app to show the microphone request flow.
+    requiredWhen: User explicitly wants to speak in the room.
+    forbiddenWhen: User only wants to listen.
+dynamicContext:
+  userContextMarkdown: "User profile: new user, prefers low-pressure games, has not joined a voice room today."
+  sessionProfileMarkdown: "Session profile: evaluating room recommendations from a mobile app."
+  runtimeStateMarkdown: "Current state: no room is open; no action has completed."
+  recentObservationsMarkdown: "Recent observations: none."
+personas:
+  - id: curious-new-user
+    goal: Find a relaxed room to try for the first time.
+    hiddenConcern: Does not want to be pushed into speaking immediately.
+    emotion: Curious but cautious.
+    familiarity: New user.
+    behaviorStyle: Asks short follow-up questions and accepts only after a clear match.
+    actionAcceptanceThreshold: Accepts OPEN_ROOM only after the assistant recommends a specific low-pressure room and asks for confirmation.
+  - id: resistant-listener
+    goal: Understand what is available without joining yet.
+    hiddenConcern: Worries the app will jump into a room without consent.
+    emotion: Defensive.
+    familiarity: Returning user.
+    behaviorStyle: Rejects premature actions and clarifies that they only want to listen.
+    actionAcceptanceThreshold: Rejects OPEN_ROOM unless the user explicitly says "open it" or "take me there".
+cases:
+  - id: vague-interest-should-not-jump
+    persona: curious-new-user
+    turns:
+      - user: "I'm bored. Anything fun here?"
+      - user: "Puzzle sounds okay, but I just want to know more first."
+    expect:
+      noAction: true
+      forbiddenActions: [OPEN_ROOM, REQUEST_MIC]
+      requiredPhrases: ["puzzle"]
+      contextRequiredPhrases: ["new user"]
+      noProtocolLeak: true
+    mockResponses:
+      - text: "Since you're a new user, I'd start with a relaxed puzzle room where you can listen first. Want a quick overview?"
+        modeEvents: [discovery]
+      - text: "Sure. A puzzle room is low-pressure: you can listen, learn the flow, and decide later whether to join."
+        modeEvents: [discovery]
+  - id: explicit-open-room-should-jump-once
+    persona: curious-new-user
+    dynamicContext:
+      runtimeStateMarkdown: "Current state: a relaxed puzzle room is available; no room action has completed."
+    turns:
+      - user: "Okay, open the relaxed puzzle room for me."
+    expect:
+      requiredActions: [OPEN_ROOM]
+      maxActions: 1
+      requiredPhrases: ["open"]
+      noProtocolLeak: true
+    mockResponses:
+      - text: "Opening the relaxed puzzle room now. [ACTION:OPEN_ROOM roomType=\"puzzle\" roomId=\"demo-puzzle-1\"]"
+        actions: ["[ACTION:OPEN_ROOM roomType=\"puzzle\" roomId=\"demo-puzzle-1\"]"]
+        modeEvents: [recommend_room]
+  - id: completed-action-should-not-repeat
+    persona: resistant-listener
+    dynamicContext:
+      runtimeStateMarkdown: "Current state: relaxed puzzle room is already open."
+      recentObservationsMarkdown: "Last action: OPEN_ROOM completed for roomId demo-puzzle-1."
+    turns:
+      - user: "It opened. What should I do next if I only want to listen?"
+    expect:
+      noAction: true
+      forbiddenActions: [OPEN_ROOM, REQUEST_MIC]
+      contextRequiredPhrases: ["listen"]
+      noProtocolLeak: true
+    mockResponses:
+      - text: "You can stay in listen-only mode for now. Since the room is already open, I'll avoid opening it again."
+        modeEvents: [room_opened]
