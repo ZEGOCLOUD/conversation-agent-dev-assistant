@@ -20,12 +20,12 @@ Use this skill when install, local service, Web validation, or real ZEGO Live E2
 Run:
 
 ```bash
-./bin/conversation-agent check --project ./ca3-project
-./bin/conversation-agent status --project ./ca3-project
-./bin/conversation-agent doctor --project ./ca3-project
+./bin/conversation-agent check --project ./pulse-project
+./bin/conversation-agent status --project ./pulse-project
+./bin/conversation-agent doctor --project ./pulse-project
 ```
 
-Check Node.js version, npm dependency installation, Gateway port, LLM config references, and `./bin/conversation-agent status --project ./ca3-project --json`. Raw curl requests to Gateway APIs may require configured auth; do not print tokens into chat.
+Check Node.js version, npm dependency installation, Gateway port, LLM config references, and `./bin/conversation-agent status --project ./pulse-project --json`. Raw curl requests to Gateway APIs may require configured auth; do not print tokens into chat.
 
 If ZEGO AppID/ServerSecret are not configured, `doctor` may report ZEGO lifecycle findings. For Level 1, treat those as missing Level 3 prerequisites, not as local Gateway startup failure.
 
@@ -34,8 +34,8 @@ If ZEGO AppID/ServerSecret are not configured, `doctor` may report ZEGO lifecycl
 Run:
 
 ```bash
-./bin/conversation-agent start zego-service --project ./ca3-project --daemon
-./bin/conversation-agent start web --project ./ca3-project --daemon
+./bin/conversation-agent start zego-service --project ./pulse-project --daemon
+./bin/conversation-agent start web --project ./pulse-project --daemon
 ```
 
 Check customer service `/health`, `/config/runtime`, Web page availability, Gateway internal base URL, and customer service to Gateway server-side auth.
@@ -45,14 +45,14 @@ Check customer service `/health`, `/config/runtime`, Web page availability, Gate
 Run the standalone example from the service package root:
 
 ```bash
-node examples/local-cloudflare-live-e2e/run.mjs --project ./ca3-project
+node examples/local-cloudflare-live-e2e/run.mjs --project ./pulse-project
 ```
 
 If Quick Tunnel fails to produce a URL, check `cloudflared` installation, network access, and Cloudflare rate limits. For stable debugging, ask the developer to set up a named tunnel and pass:
 
 ```bash
 node examples/local-cloudflare-live-e2e/run.mjs \
-  --project ./ca3-project \
+  --project ./pulse-project \
   --public-url https://ca3-live.example.com
 ```
 
@@ -70,7 +70,7 @@ If the Web frontend is deployed on another machine, route Web through that upstr
 
 ```bash
 node examples/local-cloudflare-live-e2e/run.mjs \
-  --project ./ca3-project \
+  --project ./pulse-project \
   --web-url https://web-preview.example.com \
   --skip-web
 ```

@@ -45,7 +45,7 @@ node tools/scenario-eval.mjs \
 ```bash
 node tools/scenario-eval.mjs \
   --scenario ./scenario.eval.yaml \
-  --workspace ./ca3-project/workspaces/default \
+  --workspace ./pulse-project/workspaces/default \
   --gateway-url http://127.0.0.1:18795 \
   --auth-token "$CONVERSATION_AGENT_CONTROL_TOKEN" \
   --out .scenario-eval-runs/default

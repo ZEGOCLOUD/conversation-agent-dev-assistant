@@ -21,11 +21,11 @@ Do not blur these boundaries. This assistant can reference Pulse or a customer a
 3. Do not ask the developer to paste secrets into chat. When secrets or authentication are needed, run or suggest an interactive terminal command and let the developer type values locally.
 4. Do not read back, summarize, upload, commit, or print `.env.local`, `.env`, API keys, ZEGO ServerSecret, control tokens, callback tokens, GitHub tokens, npm tokens, or customer data.
 5. Prefer the service package CLI over ad hoc commands:
-   - `./bin/conversation-agent setup --project ./ca3-project`
-   - `./bin/conversation-agent check --project ./ca3-project`
-   - `./bin/conversation-agent start gateway --project ./ca3-project --daemon`
-   - `./bin/conversation-agent status --project ./ca3-project`
-   - `./bin/conversation-agent doctor --project ./ca3-project`
+   - `./bin/conversation-agent setup --project ./pulse-project`
+   - `./bin/conversation-agent check --project ./pulse-project`
+   - `./bin/conversation-agent start gateway --project ./pulse-project --daemon`
+   - `./bin/conversation-agent status --project ./pulse-project`
+   - `./bin/conversation-agent doctor --project ./pulse-project`
 6. Keep service package directory and customer project directory separate.
 7. Distinguish four validation levels: Level 1 local Gateway, Level 2 customer service plus Web page, Level 2.5 local Cloudflare Tunnel Live Smoke, and Level 3 real cloud/public ZEGO Live E2E.
 8. For prompt or scene optimization, modify only customer-editable workspace files, knowledge files, action contracts, and integration examples. Do not modify proprietary runtime internals.

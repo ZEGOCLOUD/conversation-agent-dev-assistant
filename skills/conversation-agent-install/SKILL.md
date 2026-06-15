@@ -34,34 +34,34 @@ Use this skill when the developer wants to install or start Conversation Agent S
    ```
 6. Initialize the customer project:
    ```bash
-   ./bin/conversation-agent setup --project ./ca3-project
-   ./bin/conversation-agent check --project ./ca3-project
+   ./bin/conversation-agent setup --project ./pulse-project
+   ./bin/conversation-agent check --project ./pulse-project
    ```
 7. Start local Gateway validation:
    ```bash
-   ./bin/conversation-agent start gateway --project ./ca3-project --daemon
-   ./bin/conversation-agent status --project ./ca3-project
-   ./bin/conversation-agent doctor --project ./ca3-project
+   ./bin/conversation-agent start gateway --project ./pulse-project --daemon
+   ./bin/conversation-agent status --project ./pulse-project
+   ./bin/conversation-agent doctor --project ./pulse-project
    ```
 8. If browser or real voice validation is requested, start customer service and Web:
    ```bash
-   ./bin/conversation-agent start zego-service --project ./ca3-project --daemon
-   ./bin/conversation-agent start web --project ./ca3-project --daemon
+   ./bin/conversation-agent start zego-service --project ./pulse-project --daemon
+   ./bin/conversation-agent start web --project ./pulse-project --daemon
    ```
 9. If Level 2 passes and the developer wants a local real RTC smoke, use the standalone Cloudflare example:
    ```bash
-   node examples/local-cloudflare-live-e2e/run.mjs --project ./ca3-project
+   node examples/local-cloudflare-live-e2e/run.mjs --project ./pulse-project
    ```
    For a named tunnel or fixed HTTPS URL:
    ```bash
    node examples/local-cloudflare-live-e2e/run.mjs \
-     --project ./ca3-project \
+     --project ./pulse-project \
      --public-url https://ca3-live.example.com
    ```
    If the Web frontend is already deployed on another machine:
    ```bash
    node examples/local-cloudflare-live-e2e/run.mjs \
-     --project ./ca3-project \
+     --project ./pulse-project \
      --web-url https://web-preview.example.com \
      --skip-web
    ```

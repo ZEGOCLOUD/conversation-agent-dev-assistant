@@ -15,9 +15,9 @@ Identify whether the developer already has:
 
 | Input | Example | If missing |
 | --- | --- | --- |
-| Pulse preview artifact | `pulse-conversation-agent-gateway-v0.1.0-preview.9.tgz` | Download it from the Pulse GitHub Release unless the developer already has it locally. |
+| Pulse preview artifact | `pulse-conversation-agent-gateway-v0.1.0-preview.10.tgz` | Download it from the Pulse GitHub Release unless the developer already has it locally. |
 | Customer private service artifact | Customer-provided `.tgz` | Use only when a delivery team explicitly provides a private customer package. |
-| Customer project directory | `./ca3-project` | Default to `./ca3-project` next to the service package. |
+| Customer project directory | `./pulse-project` | Default to `./pulse-project` next to the service package. This is a generated project directory, not a workspace id. |
 | Local tunnel or real ZEGO Live E2E requirement | Level 2.5 / Level 3 / no | Default to Level 1 local Gateway validation first. |
 
 Do not ask for plaintext secrets. Secret entry belongs in setup or login commands.
@@ -29,13 +29,13 @@ Choose one path:
 ### Pulse GitHub Release
 
 ```bash
-VERSION=0.1.0-preview.9
+VERSION=0.1.0-preview.10
 BASE_URL=https://github.com/Cogit-oergo-sum/pulse-conversation-agent/releases/download/v${VERSION}
-curl -L -O ${BASE_URL}/pulse-conversation-agent-gateway-v0.1.0-preview.9.tgz
-curl -L -O ${BASE_URL}/pulse-conversation-agent-gateway-v0.1.0-preview.9.tgz.sha256
-shasum -a 256 -c pulse-conversation-agent-gateway-v0.1.0-preview.9.tgz.sha256
-tar -xzf pulse-conversation-agent-gateway-v0.1.0-preview.9.tgz
-cd pulse-conversation-agent-gateway-v0.1.0-preview.9
+curl -L -O ${BASE_URL}/pulse-conversation-agent-gateway-v0.1.0-preview.10.tgz
+curl -L -O ${BASE_URL}/pulse-conversation-agent-gateway-v0.1.0-preview.10.tgz.sha256
+shasum -a 256 -c pulse-conversation-agent-gateway-v0.1.0-preview.10.tgz.sha256
+tar -xzf pulse-conversation-agent-gateway-v0.1.0-preview.10.tgz
+cd pulse-conversation-agent-gateway-v0.1.0-preview.10
 ```
 
 ### Local `.tgz`
@@ -76,26 +76,26 @@ Node.js 20 or newer is required. The beta package may need npm registry access o
 From the service package root:
 
 ```bash
-./bin/conversation-agent setup --project ./ca3-project
-./bin/conversation-agent check --project ./ca3-project
+./bin/conversation-agent setup --project ./pulse-project
+./bin/conversation-agent check --project ./pulse-project
 ```
 
-`setup` writes customer project files under `./ca3-project`. Secrets should be written to `.env.local` or the customer service example `.env`; `conversationAgent.json` should store only `env:NAME` references.
+`setup` writes customer project files under `./pulse-project`. Secrets should be written to `.env.local` or the customer service example `.env`; `conversationAgent.json` should store only `env:NAME` references.
 
 If setup asks for LLM API Key, ZEGO AppID, ZEGO ServerSecret, callback token, or control token, ask the developer to type them into the terminal, not into chat.
 
 ## 5. Start Level 1: Local Gateway
 
 ```bash
-./bin/conversation-agent start gateway --project ./ca3-project --daemon
-./bin/conversation-agent status --project ./ca3-project
-./bin/conversation-agent doctor --project ./ca3-project
+./bin/conversation-agent start gateway --project ./pulse-project --daemon
+./bin/conversation-agent status --project ./pulse-project
+./bin/conversation-agent doctor --project ./pulse-project
 ```
 
 Optional endpoint checks:
 
 ```bash
-./bin/conversation-agent status --project ./ca3-project --json
+./bin/conversation-agent status --project ./pulse-project --json
 ```
 
 If you manually curl Gateway APIs, include the authentication configured by `conversationAgent.json` and `.env.local`; do not print tokens into chat.
@@ -107,10 +107,10 @@ Level 1 means the local Gateway is available. It does not prove real RTC/ASR/TTS
 If browser validation is needed:
 
 ```bash
-./bin/conversation-agent start zego-service --project ./ca3-project --daemon
-./bin/conversation-agent start web --project ./ca3-project --daemon
-./bin/conversation-agent status --project ./ca3-project
-./bin/conversation-agent doctor --project ./ca3-project
+./bin/conversation-agent start zego-service --project ./pulse-project --daemon
+./bin/conversation-agent start web --project ./pulse-project --daemon
+./bin/conversation-agent status --project ./pulse-project
+./bin/conversation-agent doctor --project ./pulse-project
 ```
 
 Open the Web validation page, usually:
@@ -126,14 +126,14 @@ Check customer service `/health` and `/config/runtime`.
 After Level 2 passes, use the standalone customer package example when the developer wants to run a real ZEGO callback and browser RTC smoke from the local machine:
 
 ```bash
-node examples/local-cloudflare-live-e2e/run.mjs --project ./ca3-project
+node examples/local-cloudflare-live-e2e/run.mjs --project ./pulse-project
 ```
 
 This uses Cloudflare Quick Tunnel by default. If the developer already has a Named Tunnel or stable public HTTPS URL:
 
 ```bash
 node examples/local-cloudflare-live-e2e/run.mjs \
-  --project ./ca3-project \
+  --project ./pulse-project \
   --public-url https://ca3-live.example.com
 ```
 
@@ -143,7 +143,7 @@ If the Web frontend is deployed on another machine or already has an HTTPS previ
 
 ```bash
 node examples/local-cloudflare-live-e2e/run.mjs \
-  --project ./ca3-project \
+  --project ./pulse-project \
   --web-url https://web-preview.example.com \
   --skip-web
 ```

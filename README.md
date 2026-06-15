@@ -18,8 +18,8 @@ This repository is not the Conversation Agent Service runtime. It does not conta
 ```text
 Fetch https://github.com/Cogit-oergo-sum/conversation-agent-dev-assistant,
 read AI_INSTALL.md and AGENTS.md,
-and follow them to install Pulse Conversation Agent 0.1.0-preview.9 from
-https://github.com/Cogit-oergo-sum/pulse-conversation-agent/releases/tag/v0.1.0-preview.9.
+and follow them to install Pulse Conversation Agent 0.1.0-preview.10 from
+https://github.com/Cogit-oergo-sum/pulse-conversation-agent/releases/tag/v0.1.0-preview.10.
 When GitHub, ZEGO, LLM, npm registry, or other authentication/secrets are needed,
 do not ask me to paste secrets into chat. Ask me to type them in my local terminal.
 After setup, run check/status/doctor and summarize the validation level reached.

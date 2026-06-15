@@ -40,8 +40,8 @@ Before editing, identify:
 5. Keep TTS-facing text natural and free of JSON, Markdown, protocol fields, and raw tool output.
 6. Run service checks after changes:
    ```bash
-   ./bin/conversation-agent check --project ./ca3-project
-   ./bin/conversation-agent doctor --project ./ca3-project
+   ./bin/conversation-agent check --project ./pulse-project
+   ./bin/conversation-agent doctor --project ./pulse-project
    ```
 7. If user experience matters, run Web or Live E2E smoke.
 

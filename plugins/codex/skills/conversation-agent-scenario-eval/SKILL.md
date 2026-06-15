@@ -30,7 +30,7 @@ Use this skill when the developer wants to evaluate a customer workspace with lo
    - `skills/*/SKILL.md`
 3. Validate the scenario contract first:
    ```bash
-   node tools/scenario-eval.mjs --scenario ./scenario.eval.yaml --workspace ./ca3-project/workspaces/default --dry-run
+   node tools/scenario-eval.mjs --scenario ./scenario.eval.yaml --workspace ./pulse-project/workspaces/default --dry-run
    ```
 4. Run a mock smoke if the developer is still building the case file:
    ```bash
@@ -40,7 +40,7 @@ Use this skill when the developer wants to evaluate a customer workspace with lo
    ```bash
    node tools/scenario-eval.mjs \
      --scenario ./scenario.eval.yaml \
-     --workspace ./ca3-project/workspaces/default \
+     --workspace ./pulse-project/workspaces/default \
      --gateway-url http://127.0.0.1:18795 \
      --auth-token "$CONVERSATION_AGENT_CONTROL_TOKEN" \
      --out .scenario-eval-runs/default

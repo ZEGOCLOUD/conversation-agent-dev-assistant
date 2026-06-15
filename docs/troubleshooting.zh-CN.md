@@ -7,9 +7,9 @@
 运行：
 
 ```bash
-./bin/conversation-agent check --project ./ca3-project
-./bin/conversation-agent status --project ./ca3-project
-./bin/conversation-agent doctor --project ./ca3-project
+./bin/conversation-agent check --project ./pulse-project
+./bin/conversation-agent status --project ./pulse-project
+./bin/conversation-agent doctor --project ./pulse-project
 ```
 
 常见问题：
@@ -26,8 +26,8 @@
 检查：
 
 ```bash
-./bin/conversation-agent start zego-service --project ./ca3-project --daemon
-./bin/conversation-agent start web --project ./ca3-project --daemon
+./bin/conversation-agent start zego-service --project ./pulse-project --daemon
+./bin/conversation-agent start web --project ./pulse-project --daemon
 curl http://127.0.0.1:8080/health
 curl http://127.0.0.1:8080/config/runtime
 ```
@@ -45,14 +45,14 @@ curl http://127.0.0.1:8080/config/runtime
 在客户服务包根目录运行：
 
 ```bash
-node examples/local-cloudflare-live-e2e/run.mjs --project ./ca3-project
+node examples/local-cloudflare-live-e2e/run.mjs --project ./pulse-project
 ```
 
 如果使用 Named Tunnel 或固定 HTTPS URL：
 
 ```bash
 node examples/local-cloudflare-live-e2e/run.mjs \
-  --project ./ca3-project \
+  --project ./pulse-project \
   --public-url https://ca3-live.example.com
 ```
 
@@ -60,7 +60,7 @@ node examples/local-cloudflare-live-e2e/run.mjs \
 
 ```bash
 node examples/local-cloudflare-live-e2e/run.mjs \
-  --project ./ca3-project \
+  --project ./pulse-project \
   --web-url https://web-preview.example.com \
   --skip-web
 ```
