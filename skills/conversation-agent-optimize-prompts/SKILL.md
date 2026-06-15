@@ -36,13 +36,14 @@ Before editing, identify:
 1. Inspect current workspace, mode prompts, knowledge, skills, and action contract.
 2. State the intended diff before editing.
 3. Change one failure category at a time: welcome wording, mode boundary, action boundary, knowledge/tool trigger, TTS wording, or latency.
-4. Keep TTS-facing text natural and free of JSON, Markdown, protocol fields, and raw tool output.
-5. Run service checks after changes:
+4. For UI actions, keep AI-emitted labels in key-value syntax, for example `[ACTION:OPEN_PANEL panel="billing"]`. Do not put JSON objects inside `[ACTION:...]`.
+5. Keep TTS-facing text natural and free of JSON, Markdown, protocol fields, and raw tool output.
+6. Run service checks after changes:
    ```bash
    ./bin/conversation-agent check --project ./ca3-project
    ./bin/conversation-agent doctor --project ./ca3-project
    ```
-6. If user experience matters, run Web or Live E2E smoke.
+7. If user experience matters, run Web or Live E2E smoke.
 
 ## Validation
 

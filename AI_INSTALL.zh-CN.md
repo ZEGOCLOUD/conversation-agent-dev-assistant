@@ -15,7 +15,8 @@
 
 | 信息 | 示例 | 如果没有 |
 | --- | --- | --- |
-| 服务制品 | `pulse-conversation-agent-gateway-v0.1.0-preview.2.tgz` 或交付团队提供的私有客户服务包 | 询问 Pulse release URL、客户交付 URL、私有 Release、客户专属仓库，或本地路径。 |
+| Pulse preview 制品 | `pulse-conversation-agent-gateway-v0.1.0-preview.8.tgz` | 默认从 Pulse GitHub Release 下载；如果开发者已有本地文件，则使用本地文件。 |
+| 客户私有服务制品 | 交付方提供的 `.tgz` | 只有交付方明确提供客户私有包时才使用。 |
 | 客户项目目录 | `./ca3-project` | 默认使用服务包旁边的 `./ca3-project`。 |
 | 是否需要本地 tunnel 或真实 ZEGO Live E2E | Level 2.5 / Level 3 / 否 | 默认先完成 Level 1 本地 Gateway 验收。 |
 
@@ -25,30 +26,34 @@
 
 按实际情况选择一种方式：
 
+### Pulse GitHub Release
+
+```bash
+VERSION=0.1.0-preview.8
+BASE_URL=https://github.com/Cogit-oergo-sum/pulse-conversation-agent/releases/download/v${VERSION}
+curl -L -O ${BASE_URL}/pulse-conversation-agent-gateway-v0.1.0-preview.8.tgz
+curl -L -O ${BASE_URL}/pulse-conversation-agent-gateway-v0.1.0-preview.8.tgz.sha256
+shasum -a 256 -c pulse-conversation-agent-gateway-v0.1.0-preview.8.tgz.sha256
+tar -xzf pulse-conversation-agent-gateway-v0.1.0-preview.8.tgz
+cd pulse-conversation-agent-gateway-v0.1.0-preview.8
+```
+
 ### 本地已有 `.tgz`
 
 ```bash
-tar -xzf /path/to/pulse-conversation-agent-gateway-v0.1.0-preview.2.tgz
-cd pulse-conversation-agent-gateway-v0.1.0-preview.2
+tar -xzf /path/to/customer-service-artifact.tgz
+cd /path/to/extracted-service-package
 ```
 
-如果是私有客户包，则使用交付方提供的包名，例如 `customer-service-package-*.tgz`。
+### 私有客户 Release
 
-### GitHub Release
-
-先让开发者完成 GitHub CLI 登录：
+如果交付方提供客户私有制品，先让开发者完成 GitHub CLI 登录：
 
 ```bash
 gh auth login
 ```
 
-然后从下面的 release 下载 Pulse preview 制品：
-
-```text
-https://github.com/Cogit-oergo-sum/pulse-conversation-agent/releases/tag/v0.1.0-preview.2
-```
-
-私有客户制品则使用维护方提供的 release 地址或命令下载。
+然后按交付方提供的私有 release 地址或命令下载制品。
 
 ### 受控下载链接
 
@@ -143,7 +148,14 @@ node examples/local-cloudflare-live-e2e/run.mjs \
   --skip-web
 ```
 
-Level 2.5 成功汇报必须包含 Tunnel URL，并逐项说明是否完成入房、麦克风发布、AgentInstance、ASR、LLM callback、TTS、字幕、mode/status/perf。
+Level 2.5 成功汇报必须包含 Tunnel URL，并逐项说明是否完成入房、麦克风发布、AgentInstance、ASR、LLM callback、TTS、字幕、mode/status/perf、主动说话、Action UI 和 Action feedback。
+
+如果本次发布范围包含多 workspace，Level 2.5 还必须至少覆盖：
+
+- default workspace 正常语音对话；
+- action-validation workspace 能输出预期 ACTION 并完成 feedback；
+- isolation-validation workspace 不串用 action workspace 的 prompt、action schema、日志或 canvas 状态；
+- `mode-info?workspaceId=...` 返回对应 workspace 的 modes。
 
 Level 2.5 只是本地 tunnel smoke，不等同发布验收，不能替代 Level 3 云端公网 HTTPS Live E2E。
 
@@ -160,8 +172,10 @@ Level 2.5 只是本地 tunnel smoke，不等同发布验收，不能替代 Level
 - Gateway 收到 ZEGO LLM callback。
 - ZEGO TTS 播放 AI 回复。
 - Web 展示字幕、mode、action、Agent 状态和延迟指标。
+- 多 workspace 按 AgentInstance 路由：default、action-validation、isolation-validation 的 prompt、action schema、日志、canvas 状态和 action feedback 不串。
+- 主动说话和 action feedback 必须写回所属 workspace。
 
-云端 Level 3 仍要求从客户 tarball 部署验收，不从源码目录验收。Level 2.5 的本地 tunnel 证据只能作为开发调试证据。
+云端 Level 3 仍要求从客户 tarball 部署验收，不从源码目录验收。Level 2.5 的本地 tunnel 证据只能作为开发调试证据。如果产品声明包含多 workspace 支持，单 workspace 云端 Live E2E 不能算完整 Level 3。
 
 ## 9. 最终汇报格式
 

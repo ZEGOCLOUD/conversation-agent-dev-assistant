@@ -80,12 +80,14 @@ Check:
 - local router `/health`, `/config/runtime`, `/voice/status`, and `/`
 - tunnel URL loads the Web page
 - Gateway temporary tunnel config uses the tunnel HTTPS URL
-- customer service has a loopback/private `SDK_GATEWAY_INTERNAL_BASE_URL`
+- customer service has a loopback/private `CONVERSATION_AGENT_GATEWAY_INTERNAL_BASE_URL`
 - ZEGO RegisterAgent uses the tunnel HTTPS callback URL
 - browser microphone permission and publishing
 - AgentInstance creation, ASR, LLM callback, TTS, subtitles, mode/status/perf
+- proactive speak, action UI, action feedback
+- when multi-workspace is in scope: default/action-validation/isolation-validation workspace routing, mode-info by `workspaceId`, and workspace log/canvas isolation
 
-Level 2.5 is development evidence only. Do not report it as cloud release acceptance.
+Level 2.5 is development evidence only. Do not report it as cloud managed cloud or production acceptance.
 
 ### Level 3: Real ZEGO Live E2E
 
@@ -100,8 +102,10 @@ Check:
 - Gateway receives ZEGO LLM callbacks
 - TTS vendor settings are valid
 - Web displays subtitles, mode, action, Agent status, and latency
+- Multiple workspaces route by AgentInstance and do not share prompt, action schema, logs, canvas state, or action feedback.
+- Proactive speak and action feedback write back to the owning workspace.
 
-For cloud Level 3, validate a deployment from the customer tarball through public HTTPS nginx / LB. Do not accept a source checkout, localhost-only run, or local tunnel as release acceptance.
+For cloud Level 3, validate a deployment from the customer tarball through public HTTPS nginx / LB. Do not accept a source checkout, localhost-only run, or local tunnel as managed cloud or production acceptance. If multi-workspace support is part of the release scope, single-workspace cloud Live E2E is incomplete.
 
 ## Output
 

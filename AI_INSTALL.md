@@ -15,7 +15,8 @@ Identify whether the developer already has:
 
 | Input | Example | If missing |
 | --- | --- | --- |
-| Service artifact | `pulse-conversation-agent-gateway-v0.1.0-preview.2.tgz` or a private customer service package supplied by the delivery team | Ask for the Pulse release URL, customer delivery URL, private Release, customer repo, or local file path. |
+| Pulse preview artifact | `pulse-conversation-agent-gateway-v0.1.0-preview.8.tgz` | Download it from the Pulse GitHub Release unless the developer already has it locally. |
+| Customer private service artifact | Customer-provided `.tgz` | Use only when a delivery team explicitly provides a private customer package. |
 | Customer project directory | `./ca3-project` | Default to `./ca3-project` next to the service package. |
 | Local tunnel or real ZEGO Live E2E requirement | Level 2.5 / Level 3 / no | Default to Level 1 local Gateway validation first. |
 
@@ -25,30 +26,34 @@ Do not ask for plaintext secrets. Secret entry belongs in setup or login command
 
 Choose one path:
 
+### Pulse GitHub Release
+
+```bash
+VERSION=0.1.0-preview.8
+BASE_URL=https://github.com/Cogit-oergo-sum/pulse-conversation-agent/releases/download/v${VERSION}
+curl -L -O ${BASE_URL}/pulse-conversation-agent-gateway-v0.1.0-preview.8.tgz
+curl -L -O ${BASE_URL}/pulse-conversation-agent-gateway-v0.1.0-preview.8.tgz.sha256
+shasum -a 256 -c pulse-conversation-agent-gateway-v0.1.0-preview.8.tgz.sha256
+tar -xzf pulse-conversation-agent-gateway-v0.1.0-preview.8.tgz
+cd pulse-conversation-agent-gateway-v0.1.0-preview.8
+```
+
 ### Local `.tgz`
 
 ```bash
-tar -xzf /path/to/pulse-conversation-agent-gateway-v0.1.0-preview.2.tgz
-cd pulse-conversation-agent-gateway-v0.1.0-preview.2
+tar -xzf /path/to/customer-service-artifact.tgz
+cd /path/to/extracted-service-package
 ```
 
-For a private customer package, use the package name supplied by the delivery team, for example `customer-service-package-*.tgz`.
+### Private Customer Release
 
-### GitHub Release
-
-Ask the developer to authenticate with GitHub CLI:
+If the delivery team provides a private artifact, ask the developer to authenticate with GitHub CLI:
 
 ```bash
 gh auth login
 ```
 
-Then download the Pulse preview artifact from:
-
-```text
-https://github.com/Cogit-oergo-sum/pulse-conversation-agent/releases/tag/v0.1.0-preview.2
-```
-
-For private customer artifacts, use the release URL or command provided by the maintainers.
+Then download the artifact using the private release URL or command provided by the delivery team.
 
 ### Controlled Download Link
 
@@ -143,9 +148,16 @@ node examples/local-cloudflare-live-e2e/run.mjs \
   --skip-web
 ```
 
-A successful Level 2.5 report must include the Tunnel URL and whether room join, microphone publishing, AgentInstance, ASR, LLM callback, TTS, subtitles, and mode/status/perf completed.
+A successful Level 2.5 report must include the Tunnel URL and whether room join, microphone publishing, AgentInstance, ASR, LLM callback, TTS, subtitles, mode/status/perf, proactive speak, action UI, and action feedback completed.
 
-Level 2.5 is only a local tunnel smoke. It is not release acceptance and does not replace Level 3 cloud HTTPS Live E2E.
+When the release scope includes multiple workspaces, Level 2.5 must also cover at least:
+
+- default workspace normal voice conversation;
+- action-validation workspace produces its expected ACTION and accepts feedback;
+- isolation-validation workspace does not receive the action workspace prompt, action schema, logs, or canvas state;
+- `mode-info?workspaceId=...` returns the selected workspace modes.
+
+Level 2.5 is only a local tunnel smoke. It is not managed cloud or production acceptance and does not replace Level 3 cloud HTTPS Live E2E.
 
 ## 8. Optional Level 3: Real ZEGO Live E2E
 
@@ -160,8 +172,10 @@ Validate:
 - Gateway receives ZEGO LLM callbacks.
 - ZEGO TTS plays AI responses.
 - Web page shows subtitles, mode, action, Agent status, and latency metrics.
+- Multiple workspaces route by AgentInstance: default, action-validation, and isolation-validation must not share prompt, action schema, logs, canvas state, or action feedback.
+- Proactive speak and action feedback must write back to the owning workspace.
 
-Cloud Level 3 still must validate a deployment from the customer tarball, not a source checkout. Level 2.5 local tunnel evidence is development evidence only.
+Cloud Level 3 still must validate a deployment from the customer tarball, not a source checkout. Level 2.5 local tunnel evidence is development evidence only. If the product claim includes multi-workspace support, a single-workspace cloud Live E2E is not a complete Level 3 result.
 
 ## 9. Final Report Format
 

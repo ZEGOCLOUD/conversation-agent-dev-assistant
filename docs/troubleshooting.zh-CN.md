@@ -76,7 +76,7 @@ node examples/local-cloudflare-live-e2e/run.mjs \
 | Web 资源不对 | 检查 `--web-url` 是否指向正确前端；Web 在不同机器时不要启动内置 Web。 |
 | Gateway 未收到 LLM callback | 检查临时 Gateway tunnel config 是否写入 HTTPS tunnel URL，ZEGO RegisterAgent 是否使用该 URL。 |
 
-Level 2.5 只说明本地 tunnel smoke 通过，不能替代云端 Level 3 release acceptance。
+Level 2.5 只说明本地 tunnel smoke 通过，不能替代云端 Level 3 managed cloud or production acceptance。
 
 ## Level 3：真实 ZEGO Live E2E
 
@@ -92,8 +92,10 @@ Level 2.5 只说明本地 tunnel smoke 通过，不能替代云端 Level 3 relea
 - Gateway 是否收到 LLM callback。
 - TTS 是否有供应商配置并能播放。
 - Web 是否显示字幕、mode、action、Agent 状态和延迟。
+- 主动说话和 action feedback 是否写回所属 workspace。
+- 如果发布范围包含多 workspace，default、action-validation、isolation-validation 的 AgentInstance callback、prompt、action schema、日志和 canvas 状态是否互不串线。
 
-云端 Level 3 必须从客户 tarball 部署验收，不从源码目录验收；localhost-only 或本地 tunnel-only 都不能作为 release acceptance。
+云端 Level 3 必须从客户 tarball 部署验收，不从源码目录验收；localhost-only 或本地 tunnel-only 都不能作为 managed cloud or production acceptance。如果发布范围包含多 workspace，单 workspace 云端 Live E2E 不能算完整 Level 3。
 
 ## 汇报原则
 

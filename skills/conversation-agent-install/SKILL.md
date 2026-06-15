@@ -72,10 +72,10 @@ Use this skill when the developer wants to install or start Conversation Agent S
 
 - Level 1: local Gateway is available.
 - Level 2: customer service and Web validation page are available.
-- Level 2.5: local Cloudflare Tunnel real RTC/ZEGO callback smoke works. Report the Tunnel URL and whether room join, microphone publishing, AgentInstance, ASR, LLM callback, TTS, subtitles, and mode/status/perf completed. State that this is not release acceptance.
-- Level 3: real ZEGO Live E2E works, including room join, microphone publishing, AgentInstance creation, ASR, LLM callback, TTS, subtitles, mode/action/status.
+- Level 2.5: local Cloudflare Tunnel real RTC/ZEGO callback smoke works. Report the Tunnel URL and whether room join, microphone publishing, AgentInstance, ASR, LLM callback, TTS, subtitles, mode/status/perf, proactive speak, action UI, and action feedback completed. If multi-workspace is in scope, also report default/action-validation/isolation-validation routing and log/canvas isolation. State that this is not managed cloud or production acceptance.
+- Level 3: real ZEGO Live E2E works from the released artifact, including room join, microphone publishing, AgentInstance creation, ASR, LLM callback, TTS, subtitles, mode/action/status, proactive speak, action feedback, and multi-workspace isolation when in scope.
 
-Level 3 release acceptance still requires a cloud public HTTPS deployment from the customer tarball, not a source checkout or local tunnel.
+Level 3 managed cloud or production acceptance still requires a cloud public HTTPS deployment from the customer tarball, not a source checkout or local tunnel. If multi-workspace support is part of the release scope, single-workspace cloud Live E2E is incomplete.
 
 ## Final Response
 
