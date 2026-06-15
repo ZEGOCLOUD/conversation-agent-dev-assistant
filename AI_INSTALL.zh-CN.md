@@ -179,7 +179,52 @@ Level 2.5 只是本地 tunnel smoke，不等同发布验收，不能替代 Level
 
 云端 Level 3 仍要求从客户 tarball 部署验收，不从源码目录验收。Level 2.5 的本地 tunnel 证据只能作为开发调试证据。如果产品声明包含多 workspace 支持，单 workspace 云端 Live E2E 不能算完整 Level 3。
 
-## 9. 最终汇报格式
+## 9. 可选 Preview 升级
+
+当开发者已有可用项目，希望升级到新的 preview artifact 时，使用本流程。
+
+原则：
+
+- 替换服务包目录。
+- 保留客户项目目录。
+- 修改客户配置前先备份。
+- 未经明确确认，不要覆盖 `.env.local`、`conversationAgent.json`、workspace 修改、日志或状态。
+
+推荐目录结构：
+
+```text
+/opt/pulse/releases/pulse-conversation-agent-gateway-v0.1.0-preview.15/
+/opt/pulse/releases/pulse-conversation-agent-gateway-v0.1.0-preview.16/
+/opt/pulse/current -> /opt/pulse/releases/pulse-conversation-agent-gateway-v0.1.0-preview.16
+/opt/pulse/pulse-project/
+```
+
+升级命令：
+
+```bash
+VERSION=0.1.0-preview.x
+BASE_URL=https://github.com/ZEGOCLOUD/pulse-conversation-agent/releases/download/v${VERSION}
+mkdir -p /opt/pulse/releases
+curl -L -o /tmp/pulse.tgz ${BASE_URL}/pulse-conversation-agent-gateway-v${VERSION}.tgz
+curl -L -o /tmp/pulse.tgz.sha256 ${BASE_URL}/pulse-conversation-agent-gateway-v${VERSION}.tgz.sha256
+cd /tmp
+shasum -a 256 -c pulse.tgz.sha256
+
+cd /opt/pulse/current
+./bin/conversation-agent stop all --project /opt/pulse/pulse-project
+
+tar -xzf /tmp/pulse.tgz -C /opt/pulse/releases
+ln -sfn /opt/pulse/releases/pulse-conversation-agent-gateway-v${VERSION} /opt/pulse/current
+
+cd /opt/pulse/current
+./bin/conversation-agent check --project /opt/pulse/pulse-project
+./bin/conversation-agent status --project /opt/pulse/pulse-project
+./bin/conversation-agent doctor --project /opt/pulse/pulse-project
+```
+
+如果 `check` 或 `doctor` 提示字段缺失或配置变化，请对比新 artifact 的示例与已有项目，并在编辑客户配置前确认。升级后建议至少跑一次短 Level 2 smoke；如果 live RTC 行为有变化，则跑 Level 2.5。
+
+## 10. 最终汇报格式
 
 完成后向开发者汇报：
 

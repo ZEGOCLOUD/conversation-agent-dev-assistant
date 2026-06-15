@@ -179,7 +179,52 @@ Validate:
 
 Cloud Level 3 still must validate a deployment from the customer tarball, not a source checkout. Level 2.5 local tunnel evidence is development evidence only. If the product claim includes multi-workspace support, a single-workspace cloud Live E2E is not a complete Level 3 result.
 
-## 9. Final Report Format
+## 9. Optional Preview Upgrade
+
+Use this flow when the developer already has a working project and wants to move to a newer preview artifact.
+
+Principle:
+
+- Replace the service package directory.
+- Preserve the customer project directory.
+- Back up customer-owned config before editing it.
+- Never overwrite `.env.local`, `conversationAgent.json`, workspace edits, logs, or state without explicit confirmation.
+
+Recommended layout:
+
+```text
+/opt/pulse/releases/pulse-conversation-agent-gateway-v0.1.0-preview.15/
+/opt/pulse/releases/pulse-conversation-agent-gateway-v0.1.0-preview.16/
+/opt/pulse/current -> /opt/pulse/releases/pulse-conversation-agent-gateway-v0.1.0-preview.16
+/opt/pulse/pulse-project/
+```
+
+Upgrade commands:
+
+```bash
+VERSION=0.1.0-preview.x
+BASE_URL=https://github.com/ZEGOCLOUD/pulse-conversation-agent/releases/download/v${VERSION}
+mkdir -p /opt/pulse/releases
+curl -L -o /tmp/pulse.tgz ${BASE_URL}/pulse-conversation-agent-gateway-v${VERSION}.tgz
+curl -L -o /tmp/pulse.tgz.sha256 ${BASE_URL}/pulse-conversation-agent-gateway-v${VERSION}.tgz.sha256
+cd /tmp
+shasum -a 256 -c pulse.tgz.sha256
+
+cd /opt/pulse/current
+./bin/conversation-agent stop all --project /opt/pulse/pulse-project
+
+tar -xzf /tmp/pulse.tgz -C /opt/pulse/releases
+ln -sfn /opt/pulse/releases/pulse-conversation-agent-gateway-v${VERSION} /opt/pulse/current
+
+cd /opt/pulse/current
+./bin/conversation-agent check --project /opt/pulse/pulse-project
+./bin/conversation-agent status --project /opt/pulse/pulse-project
+./bin/conversation-agent doctor --project /opt/pulse/pulse-project
+```
+
+If `check` or `doctor` reports missing or changed fields, compare the new artifact examples with the existing project and ask before editing customer config. After upgrade, recommend a short Level 2 smoke, or Level 2.5 if live RTC behavior changed.
+
+## 10. Final Report Format
 
 Report:
 

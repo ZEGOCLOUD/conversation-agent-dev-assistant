@@ -36,6 +36,16 @@ If Quick Tunnel disconnects, confirm that the keeper refreshed Gateway / custome
 Afterward, tell me whether we reached Level 2.5 or are still at Level 2, and state that this is not managed cloud or production acceptance.
 ```
 
+For preview upgrades, the developer can ask:
+
+```text
+Upgrade my Pulse Conversation Agent preview artifact safely.
+Download the new GitHub Release artifact, verify sha256, keep my existing project directory,
+stop the old services, switch the runtime package directory, run check/status/doctor,
+and tell me whether a Level 2 or Level 2.5 smoke is still needed.
+Do not overwrite my .env.local, conversationAgent.json, workspace edits, logs, or state without asking.
+```
+
 ## Validation Levels
 
 | Level | Meaning | Typical checks |
@@ -58,6 +68,25 @@ Afterward, tell me whether we reached Level 2.5 or are still at Level 2, and sta
 | Level 2.5 smoke evidence | Level 3 Live E2E managed cloud or customer-environment evidence |
 
 If a release claims multi-workspace support, both Level 2.5 and Level 3 must cover default, action-validation, and isolation-validation workspaces. A single-workspace Live E2E is not a complete Level 3 result for that release scope.
+
+## Preview Upgrade Model
+
+Preview upgrades replace the runtime package and preserve the customer project:
+
+| Directory | Role | AI assistant rule |
+| --- | --- | --- |
+| `pulse-conversation-agent-gateway-v0.1.0-preview.x/` | Immutable runtime package from GitHub Release. | Download, verify, extract, and switch to the new directory. |
+| `pulse-project/` | Customer-owned config, secrets, workspace edits, logs, and state. | Preserve and back up before changes. Never overwrite silently. |
+
+Recommended layout:
+
+```text
+/opt/pulse/releases/pulse-conversation-agent-gateway-v0.1.0-preview.15/
+/opt/pulse/current -> /opt/pulse/releases/pulse-conversation-agent-gateway-v0.1.0-preview.15
+/opt/pulse/pulse-project/
+```
+
+After switching `current`, run `check`, `status`, and `doctor`. If the new release reports missing config, update the customer project deliberately and keep secrets out of chat.
 
 ## Skills
 
