@@ -15,12 +15,14 @@ Identify whether the developer already has:
 
 | Input | Example | If missing |
 | --- | --- | --- |
-| Pulse preview artifact | `pulse-conversation-agent-gateway-v0.1.0-preview.10.tgz` | Download it from the Pulse GitHub Release unless the developer already has it locally. |
+| Pulse preview artifact | `pulse-conversation-agent-gateway-v0.1.0-preview.11.tgz` | Download it from the Pulse GitHub Release unless the developer already has it locally. |
 | Customer private service artifact | Customer-provided `.tgz` | Use only when a delivery team explicitly provides a private customer package. |
 | Customer project directory | `./pulse-project` | Default to `./pulse-project` next to the service package. This is a generated project directory, not a workspace id. |
 | Local tunnel or real ZEGO Live E2E requirement | Level 2.5 / Level 3 / no | Default to Level 1 local Gateway validation first. |
 
 Do not ask for plaintext secrets. Secret entry belongs in setup or login commands.
+
+When the developer asks how to use the service beyond installation, read the Pulse repository's Chinese developer guide first: `docs/zh-CN/guides/README.md`. It contains the sanitized 01-14 service guides for workspace, Action, Skill, deployment, validation, and troubleshooting.
 
 ## 2. Fetch The Customer Service Artifact
 
@@ -29,13 +31,13 @@ Choose one path:
 ### Pulse GitHub Release
 
 ```bash
-VERSION=0.1.0-preview.10
+VERSION=0.1.0-preview.11
 BASE_URL=https://github.com/Cogit-oergo-sum/pulse-conversation-agent/releases/download/v${VERSION}
-curl -L -O ${BASE_URL}/pulse-conversation-agent-gateway-v0.1.0-preview.10.tgz
-curl -L -O ${BASE_URL}/pulse-conversation-agent-gateway-v0.1.0-preview.10.tgz.sha256
-shasum -a 256 -c pulse-conversation-agent-gateway-v0.1.0-preview.10.tgz.sha256
-tar -xzf pulse-conversation-agent-gateway-v0.1.0-preview.10.tgz
-cd pulse-conversation-agent-gateway-v0.1.0-preview.10
+curl -L -O ${BASE_URL}/pulse-conversation-agent-gateway-v0.1.0-preview.11.tgz
+curl -L -O ${BASE_URL}/pulse-conversation-agent-gateway-v0.1.0-preview.11.tgz.sha256
+shasum -a 256 -c pulse-conversation-agent-gateway-v0.1.0-preview.11.tgz.sha256
+tar -xzf pulse-conversation-agent-gateway-v0.1.0-preview.11.tgz
+cd pulse-conversation-agent-gateway-v0.1.0-preview.11
 ```
 
 ### Local `.tgz`

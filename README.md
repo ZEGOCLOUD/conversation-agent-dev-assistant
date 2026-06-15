@@ -10,7 +10,7 @@ This repository is not the Conversation Agent Service runtime. It does not conta
 
 | Repository | Responsibility |
 | --- | --- |
-| `pulse-conversation-agent` | External preview repository with docs, examples, contracts, workspaces, checksum, and GitHub Release artifact. Developers download the runnable service artifact from its Release page. |
+| `pulse-conversation-agent` | External preview repository with docs, checksum, validation evidence, and GitHub Release artifact. Developers download the runnable service artifact from its Release page; runtime examples, contracts, and workspaces live inside the `.tgz`. |
 | `conversation-agent-dev-assistant` | Companion assistant repository for AI coding tools. It guides install, validation, prompt optimization, and troubleshooting workflows. |
 
 ## Suggested Prompt For AI Coding Tools
@@ -18,8 +18,9 @@ This repository is not the Conversation Agent Service runtime. It does not conta
 ```text
 Fetch https://github.com/Cogit-oergo-sum/conversation-agent-dev-assistant,
 read AI_INSTALL.md and AGENTS.md,
-and follow them to install Pulse Conversation Agent 0.1.0-preview.10 from
-https://github.com/Cogit-oergo-sum/pulse-conversation-agent/releases/tag/v0.1.0-preview.10.
+and follow them to install Pulse Conversation Agent 0.1.0-preview.11 from
+https://github.com/Cogit-oergo-sum/pulse-conversation-agent/releases/tag/v0.1.0-preview.11.
+Use the Chinese developer guide at docs/zh-CN/guides/README.md when you need detailed service concepts, workspace, Action, Skill, deployment, validation, and troubleshooting references.
 When GitHub, ZEGO, LLM, npm registry, or other authentication/secrets are needed,
 do not ask me to paste secrets into chat. Ask me to type them in my local terminal.
 After setup, run check/status/doctor and summarize the validation level reached.
