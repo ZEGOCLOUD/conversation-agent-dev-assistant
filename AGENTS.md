@@ -8,8 +8,8 @@ Use the current repository and artifact strategy as the default mental model:
 
 | Surface | Role |
 | --- | --- |
-| `Cogit-oergo-sum/pulse-conversation-agent` | External preview repository. It is intended to become public-readable after review, but it distributes compiled artifacts only and is not an open-source source release. |
-| `Cogit-oergo-sum/conversation-agent-dev-assistant` | This repository. It helps AI coding tools install, validate, tune, and troubleshoot the Service. |
+| `ZEGOCLOUD/pulse-conversation-agent` | External preview repository. It is intended to become public-readable after review, but it distributes compiled artifacts only and is not an open-source source release. |
+| `ZEGOCLOUD/conversation-agent-dev-assistant` | This repository. It helps AI coding tools install, validate, tune, and troubleshoot the Service. |
 | Customer `.tgz` artifacts | Customer-deployable immutable service packages. They are the thing developers actually run. |
 
 Do not blur these boundaries. This assistant can reference Pulse or a customer artifact as an input, but it must not ship runtime source, maintainer-only release internals, real secrets, or customer-specific private workspaces.

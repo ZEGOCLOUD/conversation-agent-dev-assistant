@@ -2,7 +2,7 @@
 
 Conversation Agent Developer Assistant helps AI coding tools install, understand, configure, tune, and troubleshoot Conversation Agent Service.
 
-中文说明：本仓库默认使用英文说明；中文用户请先阅读 [README.zh-CN.md](README.zh-CN.md) 和 [AI_INSTALL.zh-CN.md](AI_INSTALL.zh-CN.md)。本仓库通常配合 [Pulse Conversation Agent](https://github.com/Cogit-oergo-sum/pulse-conversation-agent) 的 GitHub Release artifact 使用。
+中文说明：本仓库默认使用英文说明；中文用户请先阅读 [README.zh-CN.md](README.zh-CN.md) 和 [AI_INSTALL.zh-CN.md](AI_INSTALL.zh-CN.md)。本仓库通常配合 [Pulse Conversation Agent](https://github.com/ZEGOCLOUD/pulse-conversation-agent) 的 GitHub Release artifact 使用。
 
 This repository is not the Conversation Agent Service runtime. It does not contain proprietary runtime source code or customer secrets. Developers run the service from the customer service artifact, and use this assistant repository to guide tools such as Codex, Cursor, and Claude Code.
 
@@ -16,10 +16,10 @@ This repository is not the Conversation Agent Service runtime. It does not conta
 ## Suggested Prompt For AI Coding Tools
 
 ```text
-Fetch https://github.com/Cogit-oergo-sum/conversation-agent-dev-assistant,
+Fetch https://github.com/ZEGOCLOUD/conversation-agent-dev-assistant,
 read AI_INSTALL.md and AGENTS.md,
-and follow them to install Pulse Conversation Agent 0.1.0-preview.11 from
-https://github.com/Cogit-oergo-sum/pulse-conversation-agent/releases/tag/v0.1.0-preview.11.
+and follow them to install Pulse Conversation Agent 0.1.0-preview.12 from
+https://github.com/ZEGOCLOUD/pulse-conversation-agent/releases/tag/v0.1.0-preview.12.
 Use the Chinese developer guide at docs/zh-CN/guides/README.md when you need detailed service concepts, workspace, Action, Skill, deployment, validation, and troubleshooting references.
 When GitHub, ZEGO, LLM, npm registry, or other authentication/secrets are needed,
 do not ask me to paste secrets into chat. Ask me to type them in my local terminal.
