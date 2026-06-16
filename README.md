@@ -96,7 +96,7 @@ Before switching, run `conversation-agent upgrade --check --json`. If the candid
 - `conversation-agent-scenario-eval`: run local text-only scenario evaluations before live RTC validation.
 - `conversation-agent-troubleshoot-live-e2e`: troubleshoot Gateway, customer service, Web, and ZEGO Live E2E issues.
 
-`skills/` is the standard Agent Skills source directory. `.agents/skills/` is mirrored for Codex repository auto-discovery. `plugins/codex/skills/` is mirrored for Codex plugin distribution. Keep all three synchronized when publishing.
+`skills/` is the standard Agent Skills source directory. `plugins/codex/skills/` is mirrored for Codex plugin distribution. Keep these two copies synchronized when publishing.
 
 ## Safety Defaults
 

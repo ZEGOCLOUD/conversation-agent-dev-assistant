@@ -86,7 +86,7 @@ preview 升级时，可以对 AI 编程软件说：
 | `conversation-agent-scenario-eval` | 在真实 RTC 验证前，运行本地纯文本场景评测，提前发现 prompt、mode、action 和动态上下文风险。 |
 | `conversation-agent-troubleshoot-live-e2e` | 排查安装、Gateway、客户服务端服务、Web、ZEGO Live E2E 问题。 |
 
-`skills/` 是标准 Agent Skills 源目录；`.agents/skills/` 是 Codex 仓库自动发现目录；`plugins/codex/skills/` 是 Codex plugin 分发目录。更新 skill 时应保持三处内容一致。
+`skills/` 是标准 Agent Skills 源目录；`plugins/codex/skills/` 是 Codex plugin 分发目录。更新 skill 时应保持这两处内容一致。
 
 ## 验收分级
 
@@ -140,7 +140,7 @@ preview 升级时替换 runtime 服务包，保留客户项目目录：
 
 ## Codex 使用方式
 
-Codex 在本仓库内运行时会通过 `.agents/skills/` 自动发现 skills。如果需要以插件形式安装，使用 `plugins/codex/` 作为插件根目录。
+Codex 等 AI 编程工具应优先使用根目录 `skills/`，或以插件形式安装 `plugins/codex/`。本仓库不再提供 `.agents/` 镜像，避免把 public assistant 仓误解为内部 AI 记忆仓。
 
 ```bash
 codex plugin marketplace add ./conversation-agent-dev-assistant/plugins

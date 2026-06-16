@@ -8,4 +8,4 @@ Install it through a local marketplace root:
 codex plugin marketplace add /path/to/conversation-agent-dev-assistant/plugins
 ```
 
-The plugin contains mirrored copies of the root `skills/` directory. The repository also mirrors those skills into `.agents/skills/` for Codex auto-discovery. When updating skills, keep all copies synchronized before publishing the plugin.
+The plugin contains mirrored copies of the root `skills/` directory. When updating skills, keep root `skills/` and `plugins/codex/skills/` synchronized before publishing the plugin.
