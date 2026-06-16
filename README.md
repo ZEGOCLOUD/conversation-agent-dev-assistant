@@ -18,8 +18,8 @@ This repository is not the Conversation Agent Service runtime. It does not conta
 ```text
 Fetch https://github.com/ZEGOCLOUD/conversation-agent-dev-assistant,
 read AI_INSTALL.md and AGENTS.md,
-and follow them to install Pulse Conversation Agent 0.1.0-preview.15 from
-https://github.com/ZEGOCLOUD/pulse-conversation-agent/releases/tag/v0.1.0-preview.15.
+and follow them to install the latest Pulse Conversation Agent Developer Preview from
+https://github.com/ZEGOCLOUD/pulse-conversation-agent.
 Use the Chinese developer guide at docs/zh-CN/guides/README.md when you need detailed service concepts, workspace, Action, Skill, deployment, validation, and troubleshooting references.
 When GitHub, ZEGO, LLM, npm registry, or other authentication/secrets are needed,
 do not ask me to paste secrets into chat. Ask me to type them in my local terminal.
@@ -40,9 +40,9 @@ For preview upgrades, the developer can ask:
 
 ```text
 Upgrade my Pulse Conversation Agent preview artifact safely.
-Download the new GitHub Release artifact, verify sha256, keep my existing project directory,
-stop the old services, switch the runtime package directory, run check/status/doctor,
-and tell me whether a Level 2 or Level 2.5 smoke is still needed.
+Run conversation-agent upgrade --check first, follow artifact-manifest.json upgradePolicy,
+upgrade to the latest GitHub Release artifact when allowed, keep my existing project directory,
+run check/status/doctor, and tell me whether a Level 2 or Level 2.5 smoke is still needed.
 Do not overwrite my .env.local, conversationAgent.json, workspace edits, logs, or state without asking.
 ```
 
@@ -75,18 +75,18 @@ Preview upgrades replace the runtime package and preserve the customer project:
 
 | Directory | Role | AI assistant rule |
 | --- | --- | --- |
-| `pulse-conversation-agent-gateway-v0.1.0-preview.x/` | Immutable runtime package from GitHub Release. | Download, verify, extract, and switch to the new directory. |
+| `pulse-conversation-agent-gateway-v0.1.0-preview.x/` | Immutable runtime package from GitHub Release. | Use the latest installer or `conversation-agent upgrade`; pin a version only for rollback or troubleshooting. |
 | `pulse-project/` | Customer-owned config, secrets, workspace edits, logs, and state. | Preserve and back up before changes. Never overwrite silently. |
 
 Recommended layout:
 
 ```text
-/opt/pulse/releases/pulse-conversation-agent-gateway-v0.1.0-preview.15/
-/opt/pulse/current -> /opt/pulse/releases/pulse-conversation-agent-gateway-v0.1.0-preview.15
+/opt/pulse/releases/<immutable-preview-package>/
+/opt/pulse/current -> /opt/pulse/releases/<immutable-preview-package>
 /opt/pulse/pulse-project/
 ```
 
-After switching `current`, run `check`, `status`, and `doctor`. If the new release reports missing config, update the customer project deliberately and keep secrets out of chat.
+Before switching, run `conversation-agent upgrade --check --json`. If the candidate requires a newer dev-assistant, update this repository first. After upgrade or rollback, run `check`, `status`, and `doctor`. If the new release reports missing config, update the customer project deliberately and keep secrets out of chat.
 
 ## Skills
 

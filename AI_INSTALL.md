@@ -15,7 +15,7 @@ Identify whether the developer already has:
 
 | Input | Example | If missing |
 | --- | --- | --- |
-| Pulse preview artifact | `pulse-conversation-agent-gateway-v0.1.0-preview.15.tgz` | Download it from the Pulse GitHub Release unless the developer already has it locally. |
+| Pulse preview artifact | Latest `pulse-conversation-agent-gateway-v*.tgz` prerelease | Install it from the Pulse GitHub Release unless the developer already has a local artifact. |
 | Customer private service artifact | Customer-provided `.tgz` | Use only when a delivery team explicitly provides a private customer package. |
 | Customer project directory | `./pulse-project` | Default to `./pulse-project` next to the service package. This is a generated project directory, not a workspace id. |
 | Local tunnel or real ZEGO Live E2E requirement | Level 2.5 / Level 3 / no | Default to Level 1 local Gateway validation first. |
@@ -31,14 +31,13 @@ Choose one path:
 ### Pulse GitHub Release
 
 ```bash
-VERSION=0.1.0-preview.15
-BASE_URL=https://github.com/ZEGOCLOUD/pulse-conversation-agent/releases/download/v${VERSION}
-curl -L -O ${BASE_URL}/pulse-conversation-agent-gateway-v0.1.0-preview.15.tgz
-curl -L -O ${BASE_URL}/pulse-conversation-agent-gateway-v0.1.0-preview.15.tgz.sha256
-shasum -a 256 -c pulse-conversation-agent-gateway-v0.1.0-preview.15.tgz.sha256
-tar -xzf pulse-conversation-agent-gateway-v0.1.0-preview.15.tgz
-cd pulse-conversation-agent-gateway-v0.1.0-preview.15
+git clone https://github.com/ZEGOCLOUD/pulse-conversation-agent.git
+cd pulse-conversation-agent
+node scripts/install-latest.mjs --channel preview --install-dir ./pulse
+cd pulse/current
 ```
+
+If the Pulse repository is private, ask the developer to authenticate with GitHub CLI or set `GITHUB_TOKEN` / `GH_TOKEN` in the terminal. Do not ask them to paste tokens into chat.
 
 ### Local `.tgz`
 
@@ -193,36 +192,34 @@ Principle:
 Recommended layout:
 
 ```text
-/opt/pulse/releases/pulse-conversation-agent-gateway-v0.1.0-preview.15/
-/opt/pulse/releases/pulse-conversation-agent-gateway-v0.1.0-preview.16/
-/opt/pulse/current -> /opt/pulse/releases/pulse-conversation-agent-gateway-v0.1.0-preview.16
+/opt/pulse/releases/<immutable-preview-package>/
+/opt/pulse/current -> /opt/pulse/releases/<immutable-preview-package>
 /opt/pulse/pulse-project/
 ```
 
-Upgrade commands:
+Check the latest candidate first:
 
 ```bash
-VERSION=0.1.0-preview.x
-BASE_URL=https://github.com/ZEGOCLOUD/pulse-conversation-agent/releases/download/v${VERSION}
-mkdir -p /opt/pulse/releases
-curl -L -o /tmp/pulse.tgz ${BASE_URL}/pulse-conversation-agent-gateway-v${VERSION}.tgz
-curl -L -o /tmp/pulse.tgz.sha256 ${BASE_URL}/pulse-conversation-agent-gateway-v${VERSION}.tgz.sha256
-cd /tmp
-shasum -a 256 -c pulse.tgz.sha256
-
 cd /opt/pulse/current
-./bin/conversation-agent stop all --project /opt/pulse/pulse-project
+./bin/conversation-agent upgrade --check --json --project /opt/pulse/pulse-project
+```
 
-tar -xzf /tmp/pulse.tgz -C /opt/pulse/releases
-ln -sfn /opt/pulse/releases/pulse-conversation-agent-gateway-v${VERSION} /opt/pulse/current
+If `upgradePolicy.requiresDevAssistantUpgrade` is true, update this dev-assistant repository first, reread `AI_INSTALL.md`, then continue. Otherwise run:
 
-cd /opt/pulse/current
-./bin/conversation-agent check --project /opt/pulse/pulse-project
+```bash
+./bin/conversation-agent upgrade --project /opt/pulse/pulse-project
 ./bin/conversation-agent status --project /opt/pulse/pulse-project
 ./bin/conversation-agent doctor --project /opt/pulse/pulse-project
 ```
 
 If `check` or `doctor` reports missing or changed fields, compare the new artifact examples with the existing project and ask before editing customer config. After upgrade, recommend a short Level 2 smoke, or Level 2.5 if live RTC behavior changed.
+
+For rollback:
+
+```bash
+cd /opt/pulse/current
+./bin/conversation-agent rollback --project /opt/pulse/pulse-project
+```
 
 ## 10. Final Report Format
 

@@ -15,7 +15,7 @@
 
 | 信息 | 示例 | 如果没有 |
 | --- | --- | --- |
-| Pulse preview 制品 | `pulse-conversation-agent-gateway-v0.1.0-preview.15.tgz` | 默认从 Pulse GitHub Release 下载；如果开发者已有本地文件，则使用本地文件。 |
+| Pulse preview 制品 | 最新 `pulse-conversation-agent-gateway-v*.tgz` prerelease | 默认从 Pulse GitHub Release 安装；如果开发者已有本地文件，则使用本地文件。 |
 | 客户私有服务制品 | 交付方提供的 `.tgz` | 只有交付方明确提供客户私有包时才使用。 |
 | 客户项目目录 | `./pulse-project` | 默认使用服务包旁边的 `./pulse-project`。这是 setup 生成的项目目录，不是 workspace 名。 |
 | 是否需要本地 tunnel 或真实 ZEGO Live E2E | Level 2.5 / Level 3 / 否 | 默认先完成 Level 1 本地 Gateway 验收。 |
@@ -31,14 +31,13 @@
 ### Pulse GitHub Release
 
 ```bash
-VERSION=0.1.0-preview.15
-BASE_URL=https://github.com/ZEGOCLOUD/pulse-conversation-agent/releases/download/v${VERSION}
-curl -L -O ${BASE_URL}/pulse-conversation-agent-gateway-v0.1.0-preview.15.tgz
-curl -L -O ${BASE_URL}/pulse-conversation-agent-gateway-v0.1.0-preview.15.tgz.sha256
-shasum -a 256 -c pulse-conversation-agent-gateway-v0.1.0-preview.15.tgz.sha256
-tar -xzf pulse-conversation-agent-gateway-v0.1.0-preview.15.tgz
-cd pulse-conversation-agent-gateway-v0.1.0-preview.15
+git clone https://github.com/ZEGOCLOUD/pulse-conversation-agent.git
+cd pulse-conversation-agent
+node scripts/install-latest.mjs --channel preview --install-dir ./pulse
+cd pulse/current
 ```
+
+如果 Pulse 仓库仍是 private，请让开发者在本地终端完成 GitHub CLI 鉴权，或设置 `GITHUB_TOKEN` / `GH_TOKEN`。不要让开发者把 token 粘贴到聊天里。
 
 ### 本地已有 `.tgz`
 
@@ -193,36 +192,34 @@ Level 2.5 只是本地 tunnel smoke，不等同发布验收，不能替代 Level
 推荐目录结构：
 
 ```text
-/opt/pulse/releases/pulse-conversation-agent-gateway-v0.1.0-preview.15/
-/opt/pulse/releases/pulse-conversation-agent-gateway-v0.1.0-preview.16/
-/opt/pulse/current -> /opt/pulse/releases/pulse-conversation-agent-gateway-v0.1.0-preview.16
+/opt/pulse/releases/<immutable-preview-package>/
+/opt/pulse/current -> /opt/pulse/releases/<immutable-preview-package>
 /opt/pulse/pulse-project/
 ```
 
-升级命令：
+先检查最新候选制品：
 
 ```bash
-VERSION=0.1.0-preview.x
-BASE_URL=https://github.com/ZEGOCLOUD/pulse-conversation-agent/releases/download/v${VERSION}
-mkdir -p /opt/pulse/releases
-curl -L -o /tmp/pulse.tgz ${BASE_URL}/pulse-conversation-agent-gateway-v${VERSION}.tgz
-curl -L -o /tmp/pulse.tgz.sha256 ${BASE_URL}/pulse-conversation-agent-gateway-v${VERSION}.tgz.sha256
-cd /tmp
-shasum -a 256 -c pulse.tgz.sha256
-
 cd /opt/pulse/current
-./bin/conversation-agent stop all --project /opt/pulse/pulse-project
+./bin/conversation-agent upgrade --check --json --project /opt/pulse/pulse-project
+```
 
-tar -xzf /tmp/pulse.tgz -C /opt/pulse/releases
-ln -sfn /opt/pulse/releases/pulse-conversation-agent-gateway-v${VERSION} /opt/pulse/current
+如果 `upgradePolicy.requiresDevAssistantUpgrade` 为 true，先更新本 dev-assistant 仓库，重新阅读 `AI_INSTALL.zh-CN.md`，再继续。否则执行：
 
-cd /opt/pulse/current
-./bin/conversation-agent check --project /opt/pulse/pulse-project
+```bash
+./bin/conversation-agent upgrade --project /opt/pulse/pulse-project
 ./bin/conversation-agent status --project /opt/pulse/pulse-project
 ./bin/conversation-agent doctor --project /opt/pulse/pulse-project
 ```
 
 如果 `check` 或 `doctor` 提示字段缺失或配置变化，请对比新 artifact 的示例与已有项目，并在编辑客户配置前确认。升级后建议至少跑一次短 Level 2 smoke；如果 live RTC 行为有变化，则跑 Level 2.5。
+
+回滚：
+
+```bash
+cd /opt/pulse/current
+./bin/conversation-agent rollback --project /opt/pulse/pulse-project
+```
 
 ## 10. 最终汇报格式
 

@@ -67,23 +67,21 @@ Use this skill when the developer wants to install or start Conversation Agent S
    ```
    Quick Tunnel has a keeper by default. If `cloudflared` exits and a new URL is generated, the keeper refreshes temporary Gateway config, restarts the Gateway managed by the script, updates customer service public URL, and re-registers the ZEGO Agent. If Gateway or customer service is skipped because it runs elsewhere, tell the developer the external process must do the same update.
    Do not ask the developer to paste cloudflared credentials or service secrets into chat. Let them authenticate or type secrets in the terminal.
-10. If the developer asks to upgrade a preview artifact, keep runtime and project directories separate:
+10. If the developer asks to upgrade a preview artifact, keep runtime and project directories separate. First inspect the candidate and its upgrade policy:
    ```bash
-   VERSION=0.1.0-preview.x
-   BASE_URL=https://github.com/ZEGOCLOUD/pulse-conversation-agent/releases/download/v${VERSION}
-   mkdir -p /opt/pulse/releases
-   curl -L -o /tmp/pulse.tgz ${BASE_URL}/pulse-conversation-agent-gateway-v${VERSION}.tgz
-   curl -L -o /tmp/pulse.tgz.sha256 ${BASE_URL}/pulse-conversation-agent-gateway-v${VERSION}.tgz.sha256
-   cd /tmp
-   shasum -a 256 -c pulse.tgz.sha256
    cd /opt/pulse/current
-   ./bin/conversation-agent stop all --project /opt/pulse/pulse-project
-   tar -xzf /tmp/pulse.tgz -C /opt/pulse/releases
-   ln -sfn /opt/pulse/releases/pulse-conversation-agent-gateway-v${VERSION} /opt/pulse/current
-   cd /opt/pulse/current
-   ./bin/conversation-agent check --project /opt/pulse/pulse-project
+   ./bin/conversation-agent upgrade --check --json --project /opt/pulse/pulse-project
+   ```
+   If `upgradePolicy.requiresDevAssistantUpgrade` is true, update this dev-assistant repository first, reread `AI_INSTALL.md` or `AI_INSTALL.zh-CN.md`, then continue. Otherwise run:
+   ```bash
+   ./bin/conversation-agent upgrade --project /opt/pulse/pulse-project
    ./bin/conversation-agent status --project /opt/pulse/pulse-project
    ./bin/conversation-agent doctor --project /opt/pulse/pulse-project
+   ```
+   For rollback:
+   ```bash
+   cd /opt/pulse/current
+   ./bin/conversation-agent rollback --project /opt/pulse/pulse-project
    ```
    Preserve the customer project directory. Do not overwrite `.env.local`, `conversationAgent.json`, workspace edits, logs, or state without explicit confirmation. If the new release requires config changes, compare examples and ask before editing customer-owned files.
 
