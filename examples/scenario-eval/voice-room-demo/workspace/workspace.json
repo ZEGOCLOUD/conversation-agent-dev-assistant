@@ -1,0 +1,30 @@
+{
+  "name": "voice-room-demo",
+  "modes": {
+    "initial": "discovery",
+    "items": [
+      {
+        "name": "discovery",
+        "description": "Learn the user's mood and room preference before taking action."
+      },
+      {
+        "name": "recommend_room",
+        "description": "Recommend a specific room after the user gives enough intent."
+      },
+      {
+        "name": "room_opened",
+        "description": "Help the user after a room action has completed."
+      }
+    ]
+  },
+  "actions": [
+    {
+      "name": "OPEN_ROOM",
+      "description": "Open a specific voice room in the customer app."
+    },
+    {
+      "name": "REQUEST_MIC",
+      "description": "Show the microphone request flow in the customer app."
+    }
+  ]
+}
